@@ -37,11 +37,15 @@ dependencies:
   hexcolor: ^2.0.6
   easy_dynamic_theme: ^2.2.0
   page_transition: ^2.0.5
+  gradient_text: ^1.0.2
+  simple_gradient_text: ^1.2.2
+  shimmer: ^2.0.0
+  mongo_dart: ^0.7.4+1
+  dio: ^4.0.6
   http: ^0.13.4
-  salomon_bottom_bar: ^3.3.1
-  splash_screen_view: ^3.0.0
-  intro_slider: ^3.0.4
-  
+  side_navigation: ^1.0.2
+  crypto: ^3.0.2
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -59,19 +63,10 @@ dev_dependencies:
 # The following section is specific to Flutter.
 flutter:
 
-  assets:
-    - assets/images/LOGO.png
-    - assets/images/splash.jpg
-    - assets/images/study.png
-    - assets/images/profs.png
-    - assets/images/chat.png
-
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
-
-
 
   # To add assets to your application, add an assets section, like this:
   # assets:
@@ -103,9 +98,3 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
-
-splash_screen_view:
-  color: "#fafafa"
-  color_dark: "#2b2e4a"
-  image: assets/images/splash.jpg
-  image_dark: assets/images/splash.jpg

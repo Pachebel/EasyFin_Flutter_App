@@ -1,8 +1,10 @@
-import 'package:easyfin_v2/Pages/dashboard/dashboard.dart';
+import 'dart:async';
+import 'package:easyfin_v2/Pages/login_page/login_page.dart';
 import 'package:flutter/material.dart';
-import 'package:intro_slider/intro_slider.dart';
-import 'package:intro_slider/slide_object.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:simple_gradient_text/simple_gradient_text.dart';
+
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -12,54 +14,51 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  List<Slide> slides = [];
-
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-
-    slides.add(
-      Slide(
-        title: "No seu tempo",
-        description: "Estude como, quando e onde você quiser.",
-        pathImage: "assets/images/study.png",
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-      ),
-    );
-    slides.add(
-      Slide(
-        title: "Na sua turma",
-        description:
-            "Tire suas dúvidas de maneira fácil e rápida na sua sala de aula.",
-        pathImage: "assets/images/chat.png",
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-      ),
-    );
-    slides.add(
-      Slide(
-        title: "Olá",
-        description:
-            "Seja muito bem-vindo à EasyFin, o seu aplicativo de educação financeira.",
-        pathImage: "assets/images/profs.png",
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-      ),
-    );
-  }
-
-  void onDonePress() {
-    Navigator.push(
-        context,
+  void initState() {
+    super.initState();
+    Timer(
+      const Duration(seconds: 2),
+      () => Navigator.of(context).pushReplacement(
         PageTransition(
-            type: PageTransitionType.rightToLeft,
-            duration: const Duration(milliseconds: 500),
-            child: const MyDashboard()));
+          type: PageTransitionType.fade, duration: const Duration(milliseconds: 500),
+          child: const LoginPage(),
+        ),
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    return IntroSlider(
-      slides: slides,
-      onDonePress: onDonePress,
+    return Scaffold(
+      body: Column(
+        children: [
+          SizedBox(height: MediaQuery.of(context).size.height * 0.2),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Center(
+              child: Text("Isso é ",
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.headline1),
+            ),
+          ),SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+          GradientText(
+            'Aplicativos!',
+            style: Theme.of(context).textTheme.headline1,
+            colors: [
+              HexColor("#05c46b"),
+              HexColor("#3bd464"),
+              HexColor("#05c46b")
+            ],
+          ),
+          Center(
+            child: SizedBox(
+              width: MediaQuery.of(context).size.width * 0.2,
+            ),
+          ),
+          const Center(),
+        ],
+      ),
     );
   }
 }
