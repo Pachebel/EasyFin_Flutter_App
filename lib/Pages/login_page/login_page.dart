@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:crypto/crypto.dart';
 import 'package:easy_dynamic_theme/easy_dynamic_theme.dart';
 import 'package:easyfin_v2/Pages/dashboard/dashboard.dart';
 import 'package:flutter/material.dart';
@@ -21,24 +20,24 @@ class LoginPageState extends State<LoginPage> {
   var url = Uri.parse('http://localhost:8080/login');
 
   Future save() async {
-
     final body = jsonEncode({'email': user.email, 'senha': user.senha});
 
-    var res = await http
-        .post(url, body: body, headers: {'Content-type': 'application/json'});
-    print(body);
+    var res = await http.post(url, body: body, headers: {
+      'Content-type': 'application/json',
+    });
+
+    //print (res.headers);
 
     if (res.statusCode == 200) {
-      print(res.statusCode);
+      //print(res.statusCode);
       Navigator.of(context)
           .push(MaterialPageRoute(builder: (context) => const MyDashboard()));
-    }
-    else {
+    } else {
       const snackBar = SnackBar(
           content: Text("Opa deu ruim parsa"),
           duration: Duration(seconds: 2),
           backgroundColor: Colors.red);
-      print(res.statusCode);
+      //print(res.statusCode);
 
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
     }
@@ -46,15 +45,11 @@ class LoginPageState extends State<LoginPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
   }
 
   String? email;
   String? senha;
-
-  late bool newuser;
-
   bool _isObscure = true;
 
   @override
@@ -85,8 +80,10 @@ class LoginPageState extends State<LoginPage> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 30),
                   child: TextFormField(
+                    textInputAction: TextInputAction.next,
                     onSaved: (onSavedVal) {
-                      email = onSavedVal;
+                      var cryptomail = utf8.encode(onSavedVal!);
+                      email = cryptomail as String?;
                     },
                     controller: TextEditingController(text: user.email),
                     onChanged: (val) {
@@ -121,6 +118,7 @@ class LoginPageState extends State<LoginPage> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 30),
                   child: TextFormField(
+                    onEditingComplete: save,
                     onSaved: (onSavedVal) {
                       senha = onSavedVal;
                     },
@@ -235,6 +233,5 @@ class LoginPageState extends State<LoginPage> {
   @override
   void dispose() {
     super.dispose();
-
   }
 }
